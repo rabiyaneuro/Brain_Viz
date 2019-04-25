@@ -46,13 +46,13 @@ KW = dict(title_size=14., zoom=1.2)
 color_by = 'strength'
 # Because we don't want to plot every connections, we only keep connections
 # above threshold
-select = edges > -1
+select = edges > 1
 # Define the connectivity object
-c_default = ConnectObj('default', nodes, edges, select=select, line_width=2.,
+c_default = ConnectObj('default', nodes, edges, select=select, line_width=1.,
                        cmap='viridis', color_by=color_by)
 # Then, we define the sources
 #node size and color
-s_obj = SourceObj('sources', nodes, color='#ab4642', radius_min=15.)
+s_obj = SourceObj('sources', nodes, color='#000000', radius_min=10.)
 #title
 sc.add_to_subplot(c_default, row=0, col=0, zoom=0.1)
 
