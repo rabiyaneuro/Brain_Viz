@@ -46,15 +46,21 @@ KW = dict(title_size=14., zoom=1.2)
 color_by = 'strength'
 # Because we don't want to plot every connections, we only keep connections
 # above threshold
-select = edges > -1
+select_thin = edges < 1
 # Define the connectivity object
-c_default = ConnectObj('default', nodes, edges, select=select, line_width=1.5,dynamic=(0, 1),
+c_thin = ConnectObj('default', nodes, edges, select=select_thin, line_width=0.5,
+                       cmap='viridis',custom_colors = {None: "green"})
+
+select_thick = edges > 2
+# Define the connectivity object
+c_thick = ConnectObj('default', nodes, edges, select=select_thick, line_width=2,
                        cmap='viridis',custom_colors = {None: "green"})
 # Then, we define the sources
 #node size and color
 s_obj = SourceObj('sources', nodes, color='#000000', radius_min=10.)
 #title
-sc.add_to_subplot(c_default, row=0, col=0, zoom=0.1)
+sc.add_to_subplot(c_thin, row=0, col=0, zoom=0.1)
+sc.add_to_subplot(c_thick, row=0, col=0, zoom=0.1)
 
 # And add connect, source and brain objects to the scene
 sc.add_to_subplot(s_obj, row=0, col=0, zoom=0.1)
