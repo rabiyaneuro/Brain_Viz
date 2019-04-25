@@ -25,8 +25,11 @@ from visbrain.io import download_file
 #Download 96x 96 tvb data
 nodes, edges = np.load("coords.npy"), np.load("weights.npy")
 
+#Download Jeremie's weights data
+edges_j = np.load("weights_j.npy")
+
 # Create the scene with a black background
-sc = SceneObj(bgcolor='white', size=(1400, 1000))
+sc = SceneObj(bgcolor='black', size=(1400, 1000))
 # sc = SceneObj(size=(1500, 600))
 
 # Colorbar default arguments. See `visbrain.objects.ColorbarObj`
@@ -46,10 +49,12 @@ KW = dict(title_size=14., zoom=1.2)
 color_by = 'strength'
 # Because we don't want to plot every connections, we only keep connections
 # above threshold
-select = edges > -1
+select = edges > 0.5
+
+################Different colors for diff strengths
 # Define the connectivity object
-c_default = ConnectObj('default', nodes, edges, select=select, line_width=1.5,dynamic=(0, 1),
-                       cmap='viridis',custom_colors = {None: "green"})
+c_default = ConnectObj('default', nodes, edges_j, select=select, line_width=1.,
+                       cmap='viridis',color_by = color_by)
 # Then, we define the sources
 #node size and color
 s_obj = SourceObj('sources', nodes, color='#000000', radius_min=10.)
@@ -61,7 +66,7 @@ sc.add_to_subplot(s_obj, row=0, col=0, zoom=0.1)
 sc.add_to_subplot(BrainObj('B3'),row=0, col=0, zoom=0.1)
 #, use_this_cam=True
 from visbrain.objects import ColorbarObj
-cb = ColorbarObj('s_obj', **CBAR_STATE)
+cb = ColorbarObj('c_default', **CBAR_STATE)
 sc.add_to_subplot(cb, width_max=200, row=0, col=1)
 
   # clim=(4., 78.2), vmin=10.,
@@ -71,6 +76,33 @@ sc.add_to_subplot(cb, width_max=200, row=0, col=1)
 
 
 sc.preview()
+
+################Different transparency for diff strengths (one color)
+# Define the connectivity object
+# c_default = ConnectObj('default', nodes, edges, select=select, line_width=0.5,dynamic=(0, 1),
+#                        cmap='viridis',custom_colors = {None: "green"})
+# # Then, we define the sources
+# #node size and color
+# s_obj = SourceObj('sources', nodes, color='#000000', radius_min=10.)
+# #title
+# sc.add_to_subplot(c_default, row=0, col=0, zoom=0.1)
+
+# # And add connect, source and brain objects to the scene
+# sc.add_to_subplot(s_obj, row=0, col=0, zoom=0.1)
+# sc.add_to_subplot(BrainObj('B3'),row=0, col=0, zoom=0.1)
+# #, use_this_cam=True
+# from visbrain.objects import ColorbarObj
+# cb = ColorbarObj('s_obj', **CBAR_STATE)
+# sc.add_to_subplot(cb, width_max=200, row=0, col=1)
+
+#   # clim=(4., 78.2), vmin=10.,
+#   #                 vmax=72., cblabel='Colorbar title', under='gray',
+#   #                 over='red', txtcolor='black', cbtxtsz=40, cbtxtsh=2.,
+#   #                 txtsz=20., width=.04)
+
+
+# sc.preview()
+
 """
 ###############################################################################
 # Color by number of connections per node
