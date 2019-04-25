@@ -26,7 +26,7 @@ from visbrain.io import download_file
 nodes, edges = np.load("coords.npy"), np.load("weights.npy")
 
 # Create the scene with a black background
-sc = SceneObj(bgcolor='black', size=(1400, 1000))
+sc = SceneObj(bgcolor='white', size=(1400, 1000))
 # sc = SceneObj(size=(1500, 600))
 
 # Colorbar default arguments. See `visbrain.objects.ColorbarObj`
@@ -46,10 +46,10 @@ KW = dict(title_size=14., zoom=1.2)
 color_by = 'strength'
 # Because we don't want to plot every connections, we only keep connections
 # above threshold
-select = edges > 1
+select = edges > -1
 # Define the connectivity object
-c_default = ConnectObj('default', nodes, edges, select=select, line_width=1.,
-                       cmap='viridis', color_by=color_by)
+c_default = ConnectObj('default', nodes, edges, select=select, line_width=1.5,dynamic=(0, 1),
+                       cmap='viridis',custom_colors = {None: "green"})
 # Then, we define the sources
 #node size and color
 s_obj = SourceObj('sources', nodes, color='#000000', radius_min=10.)
