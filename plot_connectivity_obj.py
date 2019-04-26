@@ -13,7 +13,7 @@ from visbrain.objects import ConnectObj, SceneObj, SourceObj, BrainObj
 from visbrain.io import download_file
 
 ###############################################################################
-# Download data and define the scene
+# Download data
 ###############################################################################
 # First, we download a connectivity dataset consisting of the location of each
 # node and the connectivity strength between every node
@@ -28,8 +28,21 @@ nodes, edges = np.load("coords.npy"), np.load("weights.npy")
 #Download Jeremie's weights data
 edges_j = np.load("weights_j.npy")
 
+#Download Jeremie's weights data
+edges_cv_b = np.load("cv_before.npy")
+edges_cv_a = np.load("cv_after.npy")
+
+###############################################################################
+# Define the scene
+###############################################################################
+
 # Create the scene with a black background
-sc = SceneObj(bgcolor='black', size=(1400, 1000))
+#azimuth rotation on horizontal axis
+CAM_STATE = dict(azimuth=90,        # azimuth angle
+                 elevation=0,     # elevation angle
+                 )
+#grey color - '#D3D3D3'
+sc = SceneObj(bgcolor='#D3D3D3', size=(1500, 1100), camera_state=CAM_STATE)
 # sc = SceneObj(size=(1500, 600))
 
 # Colorbar default arguments. See `visbrain.objects.ColorbarObj`
@@ -49,24 +62,24 @@ KW = dict(title_size=14., zoom=1.2)
 color_by = 'strength'
 # Because we don't want to plot every connections, we only keep connections
 # above threshold
-select = edges > 0.5
+select = edges >0 
 
 ################Different colors for diff strengths
 # Define the connectivity object
-c_default = ConnectObj('default', nodes, edges_j, select=select, line_width=1.,
-                       cmap='viridis',color_by = color_by)
+c_default = ConnectObj('default', nodes, edges_cv_b, select=select, line_width=2., antialias =True, dynamic = (0,0.5), custom_colors = {None: "black"},color_by = color_by, cmap = "inferno")
+#if you want all connec to be same color use - custom_colors = {None: "green"}
 # Then, we define the sources
 #node size and color
-s_obj = SourceObj('sources', nodes, color='#000000', radius_min=10.)
+s_obj = SourceObj('sources', nodes, color='#000000', radius_min=5.)
 #title
 sc.add_to_subplot(c_default, row=0, col=0, zoom=0.1)
 
 # And add connect, source and brain objects to the scene
 sc.add_to_subplot(s_obj, row=0, col=0, zoom=0.1)
-sc.add_to_subplot(BrainObj('B3'),row=0, col=0, zoom=0.1)
+sc.add_to_subplot(BrainObj('B3'),row=0, col=0, use_this_cam=True)
 #, use_this_cam=True
 from visbrain.objects import ColorbarObj
-cb = ColorbarObj('c_default', **CBAR_STATE)
+cb = ColorbarObj(c_default, **CBAR_STATE)
 sc.add_to_subplot(cb, width_max=200, row=0, col=1)
 
   # clim=(4., 78.2), vmin=10.,
@@ -76,6 +89,7 @@ sc.add_to_subplot(cb, width_max=200, row=0, col=1)
 
 
 sc.preview()
+#sc.screenshot("test.jpg")
 
 ################Different transparency for diff strengths (one color)
 # Define the connectivity object
