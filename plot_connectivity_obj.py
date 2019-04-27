@@ -23,8 +23,8 @@ from visbrain.io import download_file
 #nodes, edges = arch['nodes'], arch['edges']
 
 #Download 96x 96 tvb data
-nodes, edges = np.load("coords.npy"), np.load("weights.npy")
-
+nodes = np.load("coords.npy")
+# edges = np.load("weights.npy")
 #Download Jeremie's weights data
 edges_j = np.load("weights_j.npy")
 
@@ -42,7 +42,7 @@ CAM_STATE = dict(azimuth=90,        # azimuth angle
                  elevation=0,     # elevation angle
                  )
 #grey color - '#D3D3D3'
-sc = SceneObj(bgcolor='#D3D3D3', size=(1500, 1100), camera_state=CAM_STATE)
+sc = SceneObj(bgcolor='white', size=(1500, 1100), camera_state=CAM_STATE)
 # sc = SceneObj(size=(1500, 600))
 
 # Colorbar default arguments. See `visbrain.objects.ColorbarObj`
@@ -62,17 +62,46 @@ KW = dict(title_size=14., zoom=1.2)
 color_by = 'strength'
 # Because we don't want to plot every connections, we only keep connections
 # above threshold
-select = edges >0 
 
+#diff levels for diff weights
+edges = edges_j
+select0 = edges > 0
+select00 = edges <10
+select_0 = select0 == select00
+
+select1 = edges > 10
+select11 = edges <20
+select_1 = select1 == select11
+
+select2 = edges > 20
+select22 = edges <30
+select_2 = select2 == select22
+
+select3 = edges > 30
+select33 = edges <40
+select_3 = select3 == select33
+
+select_4 = edges > 40
 ################Different colors for diff strengths
 # Define the connectivity object
-c_default = ConnectObj('default', nodes, edges_cv_b, select=select, line_width=2., antialias =True, dynamic = (0,0.5), custom_colors = {None: "black"},color_by = color_by, cmap = "inferno")
+c_default = ConnectObj('default', nodes, edges, select=select_0, line_width=2., antialias =True, custom_colors = {None: "#686868"},color_by = color_by, cmap = "inferno")
+# c_default1 = ConnectObj('default', nodes, edges, select=select_1, line_width=1, antialias =True, custom_colors = {None: "black"},color_by = color_by, cmap = "inferno")
+# c_default2 = ConnectObj('default', nodes, edges, select=select_2, line_width=1.5, antialias =True, custom_colors = {None: "black"},color_by = color_by, cmap = "inferno")
+# c_default3 = ConnectObj('default', nodes, edges, select=select_3, line_width=2, antialias =True, custom_colors = {None: "black"},color_by = color_by, cmap = "inferno")
+# c_default4 = ConnectObj('default', nodes, edges, select=select_4, line_width=3, antialias =True, custom_colors = {None: "black"},color_by = color_by, cmap = "inferno")
+
+
 #if you want all connec to be same color use - custom_colors = {None: "green"}
-# Then, we define the sources
+# Then, we define the sourcess
 #node size and color
-s_obj = SourceObj('sources', nodes, color='#000000', radius_min=5.)
+s_obj = SourceObj('sources', nodes, radius_min=5., color="black")
+# black color nodes = color='#000000'
 #title
 sc.add_to_subplot(c_default, row=0, col=0, zoom=0.1)
+# sc.add_to_subplot(c_default1, row=0, col=0, zoom=0.1)
+# sc.add_to_subplot(c_default2, row=0, col=0, zoom=0.1)
+# sc.add_to_subplot(c_default3, row=0, col=0, zoom=0.1)
+# sc.add_to_subplot(c_default4, row=0, col=0, zoom=0.1)
 
 # And add connect, source and brain objects to the scene
 sc.add_to_subplot(s_obj, row=0, col=0, zoom=0.1)
