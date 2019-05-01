@@ -27,6 +27,17 @@ import numpy as np
 from visbrain.objects import SourceObj, SceneObj, ColorbarObj, BrainObj, RoiObj, ConnectObj
 from visbrain.io import download_file
 
+# Create the scene
+CAM_STATE = dict(azimuth=0,        # azimuth angle
+                 elevation=90,     # elevation angle
+                 scale_factor=180  # distance to the camera
+                 )
+sc = SceneObj(bgcolor='white', size=(1600, 1000))
+b_obj = BrainObj('B3', translucent = False)
+sc.add_to_subplot(b_obj)
+sc.screenshot('plain_brain.png')
+
+sc.preview()
 ###############################################################################
 # .. warning::
 #     To be clear with the vocabulary used, the SourceObj has a different
@@ -42,59 +53,59 @@ from visbrain.io import download_file
 
 # Download the file and get the (x, y, z) MNI coordinates of the 583 recording
 # sites
-mat = np.load(download_file('xyz_sample.npz', astype='example_data'))
-xyz = mat['xyz']
-n_sources = xyz.shape[0]
-text = ['S' + str(k) for k in range(n_sources)]
+# mat = np.load(download_file('xyz_sample.npz', astype='example_data'))
+# xyz = mat['xyz']
+# n_sources = xyz.shape[0]
+# text = ['S' + str(k) for k in range(n_sources)]
 
-###############################################################################
-# Scene creation
-###############################################################################
-# As said in other tutorials, the scene is equivalent with Matplotlib subplots.
-# So here, we define a scene that is going to centralize objects in subplots
+# ###############################################################################
+# # Scene creation
+# ###############################################################################
+# # As said in other tutorials, the scene is equivalent with Matplotlib subplots.
+# # So here, we define a scene that is going to centralize objects in subplots
 
-# Define the default camera state used for each subplot
-CAM_STATE = dict(azimuth=0,        # azimuth angle
-                 elevation=90,     # elevation angle
-                 scale_factor=180  # distance to the camera
-                 )
-S_KW = dict(camera_state=CAM_STATE)
-# Create the scene
-sc = SceneObj(size=(1600, 1000))
-CBAR_STATE = dict(cbtxtsz=12, txtsz=10., width=.5, cbtxtsh=3.,
-                  rect=(1., -2., 1., 4.))
+# # Define the default camera state used for each subplot
+# CAM_STATE = dict(azimuth=0,        # azimuth angle
+#                  elevation=90,     # elevation angle
+#                  scale_factor=180  # distance to the camera
+#                  )
+# S_KW = dict(camera_state=CAM_STATE)
+# # Create the scene
+# sc = SceneObj(size=(1600, 1000))
+# CBAR_STATE = dict(cbtxtsz=12, txtsz=10., width=.5, cbtxtsh=3.,
+#                   rect=(1., -2., 1., 4.))
 
-###############################################################################
-# Basic source object
-###############################################################################
-# The first example consist of only plotting the source, without any
-# modifications of the inputs
+# ###############################################################################
+# # Basic source object
+# ###############################################################################
+# # The first example consist of only plotting the source, without any
+# # modifications of the inputs
 
-# Create the source objects and add this object to the scene
-s_obj_basic = SourceObj('Basic', xyz)
-sc.add_to_subplot(s_obj_basic, row=0, col=0, title='Default configuration',
-                  **S_KW)
-edges = np.ones((xyz.shape[0],xyz.shape[0]))
-c_default = ConnectObj('default', xyz, edges, line_width=1., antialias =True, cmap = "inferno")
-sc.add_to_subplot(c_default, row=0, col=0)
+# # Create the source objects and add this object to the scene
+# s_obj_basic = SourceObj('Basic', xyz)
+# sc.add_to_subplot(s_obj_basic, row=0, col=0, title='Default configuration',
+#                   **S_KW)
+# edges = np.ones((xyz.shape[0],xyz.shape[0]))
+# c_default = ConnectObj('default', xyz, edges, line_width=1., antialias =True, cmap = "inferno")
+# sc.add_to_subplot(c_default, row=0, col=0)
 
 
-###############################################################################
-# Text, symbol and color control
-###############################################################################
-# Now, we attach text to each source (bold and yellow) and use a gray squares
-# symbol
+# ###############################################################################
+# # Text, symbol and color control
+# ###############################################################################
+# # Now, we attach text to each source (bold and yellow) and use a gray squares
+# # symbol
 
-# The color definition could either be uniform (e.g 'green', 'blue'...), a list
-# of colors or an array of RGB(A) colors
-# s_color = 'blue'  # uniform definition
-s_color = ["#D72638"] * 100 + ["#3772FF"] * 100 + ["#008148"] * 200 + \
-    ["#C17D11"] * 183  # list definition
-# Define the source object and add this object to the scene
-s_obj_col = SourceObj('S2', xyz, text=text, text_size=4., text_color='yellow',
-                      text_bold=True, color=s_color, symbol='square')
-sc.add_to_subplot(s_obj_col, row=0, row_span=2, col=1,
-                  title='Text, color and symbol', **S_KW)
+# # The color definition could either be uniform (e.g 'green', 'blue'...), a list
+# # of colors or an array of RGB(A) colors
+# # s_color = 'blue'  # uniform definition
+# s_color = ["#D72638"] * 100 + ["#3772FF"] * 100 + ["#008148"] * 200 + \
+#     ["#C17D11"] * 183  # list definition
+# # Define the source object and add this object to the scene
+# s_obj_col = SourceObj('S2', xyz, text=text, text_size=4., text_color='yellow',
+#                       text_bold=True, color=s_color, symbol='square')
+# sc.add_to_subplot(s_obj_col, row=0, row_span=2, col=1,
+#                   title='Text, color and symbol', **S_KW)
 
 # ###############################################################################
 # # Assigning data to sources and radius control
