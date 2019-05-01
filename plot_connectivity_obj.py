@@ -38,11 +38,12 @@ edges_cv_a = np.load("cv_after.npy")
 
 # Create the scene with a black background
 #azimuth rotation on horizontal axis
-CAM_STATE = dict(azimuth=90,        # azimuth angle
-                 elevation=0,     # elevation angle
+CAM_STATE = dict(azimuth=0,        # azimuth angle
+                 elevation=90,     # elevation angle
+                 scale_factor=180  # distance to the camera
                  )
 #grey color - '#D3D3D3'
-sc = SceneObj(bgcolor='white', size=(1500, 1100), camera_state=CAM_STATE)
+sc = SceneObj(bgcolor='white', size=(1600, 1000), camera_state=CAM_STATE)
 # sc = SceneObj(size=(1500, 600))
 
 # Colorbar default arguments. See `visbrain.objects.ColorbarObj`
@@ -64,7 +65,7 @@ color_by = 'strength'
 # above threshold
 
 #diff levels for diff weights
-edges = edges_cv_b
+edges = edges_cv_a
 select0 = edges > 0
 select00 = edges <10
 select_0 = select0 == select00
@@ -85,10 +86,10 @@ select_4 = edges > 40
 ################Different colors for diff strengths
 # Define the connectivity object
 c_default = ConnectObj('default', nodes, edges, select=select_0, line_width=1.5, antialias =True, custom_colors = {None: "#686868"},color_by = color_by, cmap = "inferno")
-# c_default1 = ConnectObj('default', nodes, edges, select=select_1, line_width=1.6, antialias =True, custom_colors = {None: "black"},color_by = color_by, cmap = "inferno")
-# c_default2 = ConnectObj('default', nodes, edges, select=select_2, line_width=1.7, antialias =True, custom_colors = {None: "black"},color_by = color_by, cmap = "inferno")
-# c_default3 = ConnectObj('default', nodes, edges, select=select_3, line_width=1.8, antialias =True, custom_colors = {None: "black"},color_by = color_by, cmap = "inferno")
-# c_default4 = ConnectObj('default', nodes, edges, select=select_4, line_width=2.5, antialias =True, custom_colors = {None: "black"},color_by = color_by, cmap = "inferno")
+c_default1 = ConnectObj('default', nodes, edges, select=select_1, line_width=1.6, antialias =True, custom_colors = {None: "black"},color_by = color_by, cmap = "inferno")
+c_default2 = ConnectObj('default', nodes, edges, select=select_2, line_width=1.7, antialias =True, custom_colors = {None: "rebeccapurple"},color_by = color_by, cmap = "inferno")
+c_default3 = ConnectObj('default', nodes, edges, select=select_3, line_width=1.8, antialias =True, custom_colors = {None: "mediumvioletred"},color_by = color_by, cmap = "inferno")
+c_default4 = ConnectObj('default', nodes, edges, select=select_4, line_width=2.5, antialias =True, custom_colors = {None: "darkorange"},color_by = color_by, cmap = "inferno")
 
 
 #if you want all connec to be same color use - custom_colors = {None: "green"}
@@ -98,18 +99,19 @@ s_obj = SourceObj('sources', nodes, radius_min=5., color="red")
 # black color nodes = color='#000000'
 #title
 sc.add_to_subplot(c_default, row=0, col=0, zoom=0.1)
-# sc.add_to_subplot(c_default1, row=0, col=0, zoom=0.1)
-# sc.add_to_subplot(c_default2, row=0, col=0, zoom=0.1)
-# sc.add_to_subplot(c_default3, row=0, col=0, zoom=0.1)
-# sc.add_to_subplot(c_default4, row=0, col=0, zoom=0.1)
+sc.add_to_subplot(c_default1, row=0, col=0, zoom=0.1)
+sc.add_to_subplot(c_default2, row=0, col=0, zoom=0.1)
+sc.add_to_subplot(c_default3, row=0, col=0, zoom=0.1)
+sc.add_to_subplot(c_default4, row=0, col=0, zoom=0.1)
 
 # And add connect, source and brain objects to the scene
 sc.add_to_subplot(s_obj, row=0, col=0, zoom=0.1)
-sc.add_to_subplot(BrainObj('B3'),row=0, col=0, use_this_cam=True)
+b_obj = BrainObj('B3')
+#sc.add_to_subplot(b_obj,row=0, col=0, use_this_cam=True)
 #, use_this_cam=True
-from visbrain.objects import ColorbarObj
-cb = ColorbarObj(c_default, **CBAR_STATE)
-sc.add_to_subplot(cb, width_max=200, row=0, col=1)
+# from visbrain.objects import ColorbarObj
+# cb = ColorbarObj(c_default, **CBAR_STATE)
+# sc.add_to_subplot(cb, width_max=200, row=0, col=1)
 
   # clim=(4., 78.2), vmin=10.,
   #                 vmax=72., cblabel='Colorbar title', under='gray',
