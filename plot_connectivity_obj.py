@@ -43,7 +43,7 @@ CAM_STATE = dict(azimuth=0,        # azimuth angle
                  scale_factor=180  # distance to the camera
                  )
 #grey color - '#D3D3D3'
-sc = SceneObj(bgcolor='white', size=(1600, 1000), camera_state=CAM_STATE)
+sc = SceneObj(bgcolor='#D3D3D3', size=(1600, 1000))
 # sc = SceneObj(size=(1500, 600))
 
 # Colorbar default arguments. See `visbrain.objects.ColorbarObj`
@@ -95,19 +95,19 @@ c_default = ConnectObj('default', nodes, edges, select=select_0, line_width=1.5,
 #if you want all connec to be same color use - custom_colors = {None: "green"}
 # Then, we define the sourcess
 #node size and color
-s_obj = SourceObj('sources', nodes, radius_min=5., color="red")
+# s_obj = SourceObj('sources', nodes, radius_min=5., color="red")
 # black color nodes = color='#000000'
 #title
-sc.add_to_subplot(c_default, row=0, col=0, zoom=0.1)
+# sc.add_to_subplot(c_default, row=0, col=0, zoom=0.1)
 # sc.add_to_subplot(c_default1, row=0, col=0, zoom=0.1)
 # sc.add_to_subplot(c_default2, row=0, col=0, zoom=0.1)
 # sc.add_to_subplot(c_default3, row=0, col=0, zoom=0.1)
 # sc.add_to_subplot(c_default4, row=0, col=0, zoom=0.1)
 
 # And add connect, source and brain objects to the scene
-sc.add_to_subplot(s_obj, row=0, col=0, zoom=0.1)
-b_obj = BrainObj('B3')
-#sc.add_to_subplot(b_obj,row=0, col=0, use_this_cam=True)
+# sc.add_to_subplot(s_obj, row=0, col=0, zoom=0.1)
+b_obj = BrainObj('B2')
+sc.add_to_subplot(b_obj,row=0, col=0, use_this_cam=True)
 #, use_this_cam=True
 # from visbrain.objects import ColorbarObj
 # cb = ColorbarObj(c_default, **CBAR_STATE)
@@ -118,7 +118,7 @@ b_obj = BrainObj('B3')
   #                 over='red', txtcolor='black', cbtxtsz=40, cbtxtsh=2.,
   #                 txtsz=20., width=.04)
 
-sc.screenshot('cv_before.png', transparent=True)
+sc.screenshot('plain_brain.png', transparent=True)
 sc.preview()
 #sc.screenshot("test.jpg")
 
