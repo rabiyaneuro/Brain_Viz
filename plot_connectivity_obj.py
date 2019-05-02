@@ -67,7 +67,8 @@ s_obj = SourceObj('sources', nodes, radius_min=5., color="red")
 sc.add_to_subplot(c_default, row=0, col=0, zoom=0.1)
 sc.add_to_subplot(s_obj, row=0, col=0, zoom=0.1)
 
-#sc.screenshot('cv_before.png', transparent=True)
+sc.screenshot('cv_before.png', transparent=True)
+print(edges_cv_b)
 sc.preview()
 
 ###############################################################################
@@ -151,7 +152,8 @@ sc.add_to_subplot(c_default4, row=0, col=0, zoom=0.1)
 # And add connect, source and brain objects to the scene
 sc.add_to_subplot(s_obj, row=0, col=0, zoom=0.1)
 
-#sc.screenshot('cv_after.png', transparent=True)
+sc.screenshot('cv_after.png', transparent=True)
+print(edges_cv_a)
 sc.preview()
 
 ###############################################################################
