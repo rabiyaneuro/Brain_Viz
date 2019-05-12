@@ -14,65 +14,65 @@ from visbrain.io import download_file
 ###############################################################################
 # 1. Network before cv
 ###############################################################################
-# First, we download a connectivity dataset consisting of the location of each
-# node and the connectivity strength between every node
+# # First, we download a connectivity dataset consisting of the location of each
+# # node and the connectivity strength between every node
 
-#Download 96x 96 tvb data
-nodes = np.load("coords.npy")
+# #Download 96x 96 tvb data
+# nodes = np.load("coords.npy")
 
-#Download Jeremie's cv weights data
-edges_cv_b = np.load("cv_before.npy")
+# #Download Jeremie's cv weights data
+# edges_cv_b = np.load("cv_before.npy")
 
-# Create the scene with a black background
+# # Create the scene with a black background
 
-#azimuth rotation on horizontal axis
-CAM_STATE = dict(azimuth=90,        # azimuth angle
-                 elevation=0,     # elevation angle
-                 scale_factor=180  # distance to the camera
-                 )
-# top view - 0, 90, 180
-# front = 0, 0 ,180
-# 90, 0, 180
-#grey color - '#D3D3D3'
-sc = SceneObj(bgcolor='white', size=(1600, 1000), camera_state=CAM_STATE)
-# sc = SceneObj(size=(1500, 600))
+# #azimuth rotation on horizontal axis
+# CAM_STATE = dict(azimuth=90,        # azimuth angle
+#                  elevation=0,     # elevation angle
+#                  scale_factor=180  # distance to the camera
+#                  )
+# # top view - 0, 90, 180
+# # front = 0, 0 ,180
+# # 90, 0, 180
+# #grey color - '#D3D3D3'
+# sc = SceneObj(bgcolor='white', size=(1600, 1000), camera_state=CAM_STATE)
+# # sc = SceneObj(size=(1500, 600))
 
-# Colorbar default arguments. See `visbrain.objects.ColorbarObj`
-CBAR_STATE = dict(cbtxtsz=12, txtsz=10., width=.1, cbtxtsh=3.,
-                  rect=(-.3, -2., 1., 4.))
-KW = dict(title_size=14., zoom=1.2)
+# # Colorbar default arguments. See `visbrain.objects.ColorbarObj`
+# CBAR_STATE = dict(cbtxtsz=12, txtsz=10., width=.1, cbtxtsh=3.,
+#                   rect=(-.3, -2., 1., 4.))
+# KW = dict(title_size=14., zoom=1.2)
 
-# Color by connectivity strength
-# First, we download a connectivity dataset consisting of the location of each
-# node (iEEG site) and the connectivity strength between those nodes. The first
-# coloring method illustrated bellow consist in coloring connections based on
-# a colormap
+# # Color by connectivity strength
+# # First, we download a connectivity dataset consisting of the location of each
+# # node (iEEG site) and the connectivity strength between those nodes. The first
+# # coloring method illustrated bellow consist in coloring connections based on
+# # a colormap
 
-# Coloring method
-color_by = 'strength'
-# Because we don't want to plot every connections, we only keep connections
-# above threshold
+# # Coloring method
+# color_by = 'strength'
+# # Because we don't want to plot every connections, we only keep connections
+# # above threshold
 
-#diff levels for diff weights
-edges = edges_cv_b
-select0 = edges > 0
-select00 = edges <10
-select_0 = select0 == select00
+# #diff levels for diff weights
+# edges = edges_cv_b
+# select0 = edges > 0
+# select00 = edges <10
+# select_0 = select0 == select00
 
-################Different colors for diff strengths
-# Define the connectivity object
-c_default = ConnectObj('default', nodes, edges, select=select_0, line_width=1.5, antialias =True, custom_colors = {None: "#686868"},color_by = color_by, cmap = "inferno")
+# ################Different colors for diff strengths
+# # Define the connectivity object
+# c_default = ConnectObj('default', nodes, edges, select=select_0, line_width=1.5, antialias =True, custom_colors = {None: "#686868"},color_by = color_by, cmap = "inferno")
 
-#if you want all connec to be same color use - custom_colors = {None: "green"}
-# Then, we define the sourcess
-#node size and color
-s_obj = SourceObj('sources', nodes, radius_min=5., color="red")
-sc.add_to_subplot(c_default, row=0, col=0, zoom=0.1)
-sc.add_to_subplot(s_obj, row=0, col=0, zoom=0.1)
+# #if you want all connec to be same color use - custom_colors = {None: "green"}
+# # Then, we define the sourcess
+# #node size and color
+# s_obj = SourceObj('sources', nodes, radius_min=5., color="red")
+# sc.add_to_subplot(c_default, row=0, col=0, zoom=0.1)
+# sc.add_to_subplot(s_obj, row=0, col=0, zoom=0.1)
 
-#sc.screenshot('cv_before3.png', transparent=True)
-print(edges_cv_b)
-sc.preview()
+# #sc.screenshot('cv_before3.png', transparent=True)
+# print(edges_cv_b)
+# sc.preview()
 
 ###############################################################################
 # 2. Network after cv
@@ -115,8 +115,12 @@ color_by = 'strength'
 # Because we don't want to plot every connections, we only keep connections
 # above threshold
 
+#applying mask for diff regions
+mask = np.load("mask3.npy")
+edges = edges_cv_a[mask]
+
 #diff levels for diff weights
-edges = edges_cv_a
+#edges = edges_cv_a
 select0 = edges > 0
 select00 = edges <10
 select_0 = select0 == select00
@@ -190,10 +194,10 @@ sc.preview()
 # 3. Plain brain
 ###############################################################################
 
-# Create the scene 
+# # Create the scene 
 
-sc = SceneObj(bgcolor='#D3D3D3', size=(1600, 1000))
-b_obj = BrainObj('B3')
-sc.add_to_subplot(b_obj,row=0, col=0, use_this_cam=True)
-#sc.screenshot('plain_brain.png', transparent=True)
-sc.preview()
+# sc = SceneObj(bgcolor='#D3D3D3', size=(1600, 1000))
+# b_obj = BrainObj('B3')
+# sc.add_to_subplot(b_obj,row=0, col=0, use_this_cam=True)
+# #sc.screenshot('plain_brain.png', transparent=True)
+# sc.preview()
