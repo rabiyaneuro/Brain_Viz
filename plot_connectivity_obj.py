@@ -89,8 +89,8 @@ edges_cv_a = np.load("cv_after.npy")
 # Create the scene with a black background
 
 #azimuth rotation on horizontal axis
-CAM_STATE = dict(azimuth=90,        # azimuth angle
-                 elevation=0,     # elevation angle
+CAM_STATE = dict(azimuth=0,        # azimuth angle
+                 elevation=90,     # elevation angle
                  scale_factor=180  # distance to the camera
                  )
 # # top view - 0, 90, 180
