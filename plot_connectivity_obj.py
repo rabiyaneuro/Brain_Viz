@@ -116,8 +116,9 @@ color_by = 'strength'
 # above threshold
 
 #applying mask for diff regions
-mask = np.load("mask3.npy")
-edges = edges_cv_a[mask]
+mask = np.load("mask4.npy")
+edges = np.where(mask, -999, edges_cv_a)
+
 print(edges, edges.shape)
 
 #diff levels for diff weights
@@ -125,7 +126,7 @@ print(edges, edges.shape)
 select0 = edges > 0
 select00 = edges <10
 select_0 = select0 == select00
-
+print(select0, select00, select_0[select_0==True])
 select1 = edges > 10
 select11 = edges <20
 select_1 = select1 == select11
@@ -156,36 +157,38 @@ select_7 = edges > 70
 
 ################Different colors for diff strengths
 # Define the connectivity object
-if not select_0.all() == False:
+print("here", select_0.all() == False)
+
+if select_0.any():
 	c_default = ConnectObj('default', nodes, edges, select=select_0, line_width=1.5, antialias =True, custom_colors = {None: "#686868"},color_by = color_by, cmap = "inferno")
 	sc.add_to_subplot(c_default, row=0, col=0, zoom=0.1)
 
-if not select_1.all() == False:
+if select_1.any():
 	c_default1 = ConnectObj('default', nodes, edges, select=select_1, line_width=1.5, antialias =True, custom_colors = {None: "black"},color_by = color_by, cmap = "inferno")
 	sc.add_to_subplot(c_default1, row=0, col=0, zoom=0.1)
 
-if not select_2.all() == False:
+if select_2.any():
 	c_default2 = ConnectObj('default', nodes, edges, select=select_2, line_width=1.6, antialias =True, custom_colors = {None: "blue"},color_by = color_by, cmap = "inferno")
 	sc.add_to_subplot(c_default2, row=0, col=0, zoom=0.1)
 
-if not select_3.all() == False:
+if select_3.any():
 	c_default3 = ConnectObj('default', nodes, edges, select=select_3, line_width=1.7, antialias =True, custom_colors = {None: "green"},color_by = color_by, cmap = "inferno")
 	sc.add_to_subplot(c_default3, row=0, col=0, zoom=0.1)
 
 
-if not select_4.all() == False:
+if select_4.any():
 	c_default4 = ConnectObj('default', nodes, edges, select=select_4, line_width=1.8, antialias =True, custom_colors = {None: "yellow"},color_by = color_by, cmap = "inferno")
 	sc.add_to_subplot(c_default4, row=0, col=0, zoom=0.1)
 
-if not select_5.all() == False:
+if select_5.any():
 	c_default5 = ConnectObj('default', nodes, edges, select=select_5, line_width=2., antialias =True, custom_colors = {None: "orange"},color_by = color_by, cmap = "inferno")
 	sc.add_to_subplot(c_default5, row=0, col=0, zoom=0.1)
 
-if not select_6.all() == False:
+if select_6.any():
 	c_default6 = ConnectObj('default', nodes, edges, select=select_6, line_width=2.5, antialias =True, custom_colors = {None: "red"},color_by = color_by, cmap = "inferno")
 	sc.add_to_subplot(c_default6, row=0, col=0, zoom=0.1)
 
-if not select_7.all() == False:
+if select_7.any():
 	c_default7 = ConnectObj('default', nodes, edges, select=select_7, line_width=3, antialias =True, custom_colors = {None: "maroon"},color_by = color_by, cmap = "inferno")
 	sc.add_to_subplot(c_default7, row=0, col=0, zoom=0.1)
 
