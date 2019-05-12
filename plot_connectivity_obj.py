@@ -118,6 +118,7 @@ color_by = 'strength'
 #applying mask for diff regions
 mask = np.load("mask3.npy")
 edges = edges_cv_a[mask]
+print(edges, edges.shape)
 
 #diff levels for diff weights
 #edges = edges_cv_a
@@ -155,15 +156,39 @@ select_7 = edges > 70
 
 ################Different colors for diff strengths
 # Define the connectivity object
-c_default = ConnectObj('default', nodes, edges, select=select_0, line_width=1.5, antialias =True, custom_colors = {None: "#686868"},color_by = color_by, cmap = "inferno")
-c_default1 = ConnectObj('default', nodes, edges, select=select_1, line_width=1.5, antialias =True, custom_colors = {None: "black"},color_by = color_by, cmap = "inferno")
-c_default2 = ConnectObj('default', nodes, edges, select=select_2, line_width=1.6, antialias =True, custom_colors = {None: "blue"},color_by = color_by, cmap = "inferno")
-c_default3 = ConnectObj('default', nodes, edges, select=select_3, line_width=1.7, antialias =True, custom_colors = {None: "green"},color_by = color_by, cmap = "inferno")
-c_default4 = ConnectObj('default', nodes, edges, select=select_4, line_width=1.8, antialias =True, custom_colors = {None: "yellow"},color_by = color_by, cmap = "inferno")
+if not select_0.all() == False:
+	c_default = ConnectObj('default', nodes, edges, select=select_0, line_width=1.5, antialias =True, custom_colors = {None: "#686868"},color_by = color_by, cmap = "inferno")
+	sc.add_to_subplot(c_default, row=0, col=0, zoom=0.1)
 
-c_default5 = ConnectObj('default', nodes, edges, select=select_5, line_width=2., antialias =True, custom_colors = {None: "orange"},color_by = color_by, cmap = "inferno")
-c_default6 = ConnectObj('default', nodes, edges, select=select_6, line_width=2.5, antialias =True, custom_colors = {None: "red"},color_by = color_by, cmap = "inferno")
-c_default7 = ConnectObj('default', nodes, edges, select=select_7, line_width=3, antialias =True, custom_colors = {None: "maroon"},color_by = color_by, cmap = "inferno")
+if not select_1.all() == False:
+	c_default1 = ConnectObj('default', nodes, edges, select=select_1, line_width=1.5, antialias =True, custom_colors = {None: "black"},color_by = color_by, cmap = "inferno")
+	sc.add_to_subplot(c_default1, row=0, col=0, zoom=0.1)
+
+if not select_2.all() == False:
+	c_default2 = ConnectObj('default', nodes, edges, select=select_2, line_width=1.6, antialias =True, custom_colors = {None: "blue"},color_by = color_by, cmap = "inferno")
+	sc.add_to_subplot(c_default2, row=0, col=0, zoom=0.1)
+
+if not select_3.all() == False:
+	c_default3 = ConnectObj('default', nodes, edges, select=select_3, line_width=1.7, antialias =True, custom_colors = {None: "green"},color_by = color_by, cmap = "inferno")
+	sc.add_to_subplot(c_default3, row=0, col=0, zoom=0.1)
+
+
+if not select_4.all() == False:
+	c_default4 = ConnectObj('default', nodes, edges, select=select_4, line_width=1.8, antialias =True, custom_colors = {None: "yellow"},color_by = color_by, cmap = "inferno")
+	sc.add_to_subplot(c_default4, row=0, col=0, zoom=0.1)
+
+if not select_5.all() == False:
+	c_default5 = ConnectObj('default', nodes, edges, select=select_5, line_width=2., antialias =True, custom_colors = {None: "orange"},color_by = color_by, cmap = "inferno")
+	sc.add_to_subplot(c_default5, row=0, col=0, zoom=0.1)
+
+if not select_6.all() == False:
+	c_default6 = ConnectObj('default', nodes, edges, select=select_6, line_width=2.5, antialias =True, custom_colors = {None: "red"},color_by = color_by, cmap = "inferno")
+	sc.add_to_subplot(c_default6, row=0, col=0, zoom=0.1)
+
+if not select_7.all() == False:
+	c_default7 = ConnectObj('default', nodes, edges, select=select_7, line_width=3, antialias =True, custom_colors = {None: "maroon"},color_by = color_by, cmap = "inferno")
+	sc.add_to_subplot(c_default7, row=0, col=0, zoom=0.1)
+
 # '#686868', 'blue', 'cyan', 'springgreen', 'yellow','orange', 'red', 'maroon'
 # '#686868', 'black', 'blue', 'green', 'yellow','orange', 'red', 'maroon'
 #if you want all connec to be same color use - custom_colors = {None: "green"}
@@ -173,17 +198,8 @@ c_default7 = ConnectObj('default', nodes, edges, select=select_7, line_width=3, 
 s_obj = SourceObj('sources', nodes, radius_min=5., color="red")
 # black color nodes = color='#000000'
 #title
-sc.add_to_subplot(c_default, row=0, col=0, zoom=0.1)
-sc.add_to_subplot(c_default1, row=0, col=0, zoom=0.1)
-sc.add_to_subplot(c_default2, row=0, col=0, zoom=0.1)
-sc.add_to_subplot(c_default3, row=0, col=0, zoom=0.1)
-sc.add_to_subplot(c_default4, row=0, col=0, zoom=0.1)
 
-sc.add_to_subplot(c_default5, row=0, col=0, zoom=0.1)
-sc.add_to_subplot(c_default6, row=0, col=0, zoom=0.1)
-sc.add_to_subplot(c_default7, row=0, col=0, zoom=0.1)
-
-# And add connect, source and brain objects to the scene
+# And add source to the scene
 sc.add_to_subplot(s_obj, row=0, col=0, zoom=0.1)
 
 #sc.screenshot('cv_after3.png', transparent=True)
