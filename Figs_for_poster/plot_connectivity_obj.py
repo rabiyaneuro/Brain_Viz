@@ -250,12 +250,12 @@ select_5 = edges >= bndries[5]
 # Define the connectivity object
 if select_0.any():
 	c_default = ConnectObj('default', nodes, edges, select=select_0, line_width=width, 
-		antialias =True, custom_colors = {None: "midnightblue"})
+		antialias =True, custom_colors = {None: "black"})
 	sc.add_to_subplot(c_default, row=0, col=0, zoom=0.1)
 
 if select_1.any():
 	c_default1 = ConnectObj('default', nodes, edges, select=select_1, line_width=width, 
-		antialias =True, custom_colors = {None: "navy"})
+		antialias =True, custom_colors = {None: "midnightblue"})
 	sc.add_to_subplot(c_default1, row=0, col=0, zoom=0.1)
 
 if select_2.any():
@@ -265,20 +265,20 @@ if select_2.any():
 
 if select_3.any():
 	c_default3 = ConnectObj('default', nodes, edges, select=select_3, line_width=width, 
-		antialias =True, custom_colors = {None: "dodgerblue"})
+		antialias =True, custom_colors = {None: "navy"})
 	sc.add_to_subplot(c_default3, row=0, col=0, zoom=0.1)
 
 
 if select_4.any():
 	c_default4 = ConnectObj('default', nodes, edges, select=select_4, line_width=width, 
-		antialias =True, custom_colors = {None: "steelblue"})
+		antialias =True, custom_colors = {None: "dodgerblue"})
 	sc.add_to_subplot(c_default4, row=0, col=0, zoom=0.1)
 
 if select_5.any():
 	c_default5 = ConnectObj('default', nodes, edges, select=select_5, line_width=width, 
 		antialias =True, custom_colors = {None: "skyblue"})
 	sc.add_to_subplot(c_default5, row=0, col=0, zoom=0.1)
-
+# 'black','midnightblue', 'navy', 'mediumblue','dodgerblue', 'skyblue'])
 # if select_6.any():
 # 	c_default6 = ConnectObj('default', nodes, edges, select=select_6, line_width=width, antialias =True, custom_colors = {None: "deepskyblue"})
 # 	sc.add_to_subplot(c_default6, row=0, col=0, zoom=0.1)
@@ -297,6 +297,6 @@ s_obj = SourceObj('sources', nodes, radius_min=5., color="red")
 sc.add_to_subplot(s_obj, row=0, col=0, zoom=0.1)
 name = 'est_net{}_meth{}.png'.format(NETWORK,EST)
 print(name)
-sc.screenshot(name, transparent=True)
+#sc.screenshot(name, transparent=True)
 print("a",np.mean(edges_cv_a[edges_cv_a!=0]))
 sc.preview()
