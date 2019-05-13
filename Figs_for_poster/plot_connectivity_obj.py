@@ -9,7 +9,7 @@ import random
 from visbrain.objects import ConnectObj, SceneObj, SourceObj, BrainObj
 from visbrain.io import download_file
 
-#choose network
+#CHOOSE NETWORK (change according to which fig you want to generate)
 NETWORK = 3
 EST = 3 #1: correlation, 2: pli, 3: pli+corr
 
