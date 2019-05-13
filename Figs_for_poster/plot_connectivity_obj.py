@@ -10,7 +10,7 @@ from visbrain.objects import ConnectObj, SceneObj, SourceObj, BrainObj
 from visbrain.io import download_file
 
 #CHOOSE NETWORK (change according to which fig you want to generate)
-NETWORK = 3
+NETWORK = 1
 EST = 3 #1: correlation, 2: pli, 3: pli+corr
 
 # Download data
@@ -83,8 +83,8 @@ elif NETWORK ==3:
 # Create the scene with a black background
 
 #azimuth rotation on horizontal axis
-CAM_STATE = dict(azimuth=90,        # azimuth angle
-                 elevation=0,     # elevation angle
+CAM_STATE = dict(azimuth=0,        # azimuth angle
+                 elevation=90,     # elevation angle
                  scale_factor=180  # distance to the camera
                  )
 # top view - 0, 90, 180
@@ -103,6 +103,8 @@ KW = dict(title_size=14., zoom=1.2)
 edges = edges_cv_b
 print(edges)
 bndries = [0.5, 2,4, 6, 8, 9, 10]
+width  = 3
+
 
 ###############################################################################
 # 1. Target Network
@@ -142,7 +144,6 @@ bndries = [0.5, 2,4, 6, 8, 9, 10]
 
 # ################Different colors for diff strengths
 # # Define the connectivity object
-# width  = 1.5
 # if select_0.any():
 # 	c_default = ConnectObj('default', nodes, edges, select=select_0, line_width=width, 
 # 		antialias =True, custom_colors = {None: "midnightblue"})
@@ -160,18 +161,18 @@ bndries = [0.5, 2,4, 6, 8, 9, 10]
 
 # if select_3.any():
 # 	c_default3 = ConnectObj('default', nodes, edges, select=select_3, line_width=width, 
-# 		antialias =True, custom_colors = {None: "blue"})
+# 		antialias =True, custom_colors = {None: "dodgerblue"})
 # 	sc.add_to_subplot(c_default3, row=0, col=0, zoom=0.1)
 
 
 # if select_4.any():
 # 	c_default4 = ConnectObj('default', nodes, edges, select=select_4, line_width=width, 
-# 		antialias =True, custom_colors = {None: "dodgerblue"})
+# 		antialias =True, custom_colors = {None: "steelblue"})
 # 	sc.add_to_subplot(c_default4, row=0, col=0, zoom=0.1)
 
 # if select_5.any():
 # 	c_default5 = ConnectObj('default', nodes, edges, select=select_5, line_width=width, 
-# 		antialias =True, custom_colors = {None: "deepskyblue"})
+# 		antialias =True, custom_colors = {None: "skyblue"})
 # 	sc.add_to_subplot(c_default5, row=0, col=0, zoom=0.1)
 
 # # if select_6.any():
@@ -247,7 +248,6 @@ select_5 = edges >= bndries[5]
 
 ################Different colors for diff strengths
 # Define the connectivity object
-width  = 1.5
 if select_0.any():
 	c_default = ConnectObj('default', nodes, edges, select=select_0, line_width=width, 
 		antialias =True, custom_colors = {None: "midnightblue"})
@@ -265,18 +265,18 @@ if select_2.any():
 
 if select_3.any():
 	c_default3 = ConnectObj('default', nodes, edges, select=select_3, line_width=width, 
-		antialias =True, custom_colors = {None: "blue"})
+		antialias =True, custom_colors = {None: "dodgerblue"})
 	sc.add_to_subplot(c_default3, row=0, col=0, zoom=0.1)
 
 
 if select_4.any():
 	c_default4 = ConnectObj('default', nodes, edges, select=select_4, line_width=width, 
-		antialias =True, custom_colors = {None: "dodgerblue"})
+		antialias =True, custom_colors = {None: "steelblue"})
 	sc.add_to_subplot(c_default4, row=0, col=0, zoom=0.1)
 
 if select_5.any():
 	c_default5 = ConnectObj('default', nodes, edges, select=select_5, line_width=width, 
-		antialias =True, custom_colors = {None: "deepskyblue"})
+		antialias =True, custom_colors = {None: "skyblue"})
 	sc.add_to_subplot(c_default5, row=0, col=0, zoom=0.1)
 
 # if select_6.any():
