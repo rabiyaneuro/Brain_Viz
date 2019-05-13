@@ -10,7 +10,7 @@ from visbrain.objects import ConnectObj, SceneObj, SourceObj, BrainObj
 from visbrain.io import download_file
 
 #choose network
-NETWORK = 1
+NETWORK = 3
 EST = 3 #1: correlation, 2: pli, 3: pli+corr
 
 # Download data
@@ -44,9 +44,6 @@ def p2matrix(p, nodes_n):
             ind += 1
     return wmat
 
-###############################################################################
-# 1. Target Network
-###############################################################################
 
 #Edge/cv data
 if NETWORK ==1:
@@ -107,100 +104,105 @@ edges = edges_cv_b
 print(edges)
 bndries = [0.5, 2,4, 6, 8, 9, 10]
 
+###############################################################################
+# 1. Target Network
+###############################################################################
 
-select0 = edges >=bndries[0]
-select00 = edges <bndries[1]
-select_0 = select0 == select00
+# select0 = edges >=bndries[0]
+# select00 = edges <bndries[1]
+# select_0 = select0 == select00
 
-select1 = edges >= bndries[1]
-select11 = edges <bndries[2]
-select_1 = select1 == select11
+# select1 = edges >= bndries[1]
+# select11 = edges <bndries[2]
+# select_1 = select1 == select11
 
-select2 = edges >= bndries[2]
-select22 = edges <bndries[3]
-select_2 = select2 == select22
+# select2 = edges >= bndries[2]
+# select22 = edges <bndries[3]
+# select_2 = select2 == select22
 
-select3 = edges >= bndries[3]
-select33 = edges <bndries[4]
-select_3 = select3 == select33
+# select3 = edges >= bndries[3]
+# select33 = edges <bndries[4]
+# select_3 = select3 == select33
 
-select4 = edges >= bndries[4]
-select44 = edges <bndries[5]
-select_4 = select4 == select44
+# select4 = edges >= bndries[4]
+# select44 = edges <bndries[5]
+# select_4 = select4 == select44
 
-select5 = edges >= bndries[5]
-select55 = edges <bndries[6]
-select_5 = select5 == select55
+# select_5 = edges >= bndries[5]
 
-# select6 = edges >= bndries[6]
-# select66 = edges <bndries[7]
-# select_6 = select6 == select66
+# # select5 = edges >= bndries[5]
+# # select55 = edges <bndries[6]
+# # select_5 = select5 == select55
 
-# select_7 = edges > bndries[7]
+# # select6 = edges >= bndries[6]
+# # select66 = edges <bndries[7]
+# # select_6 = select6 == select66
 
-################Different colors for diff strengths
-# Define the connectivity object
-width  = 1.5
-if select_0.any():
-	c_default = ConnectObj('default', nodes, edges, select=select_0, line_width=width, 
-		antialias =True, custom_colors = {None: "midnightblue"})
-	sc.add_to_subplot(c_default, row=0, col=0, zoom=0.1)
+# # select_7 = edges > bndries[7]
 
-if select_1.any():
-	c_default1 = ConnectObj('default', nodes, edges, select=select_1, line_width=width, 
-		antialias =True, custom_colors = {None: "navy"})
-	sc.add_to_subplot(c_default1, row=0, col=0, zoom=0.1)
+# ################Different colors for diff strengths
+# # Define the connectivity object
+# width  = 1.5
+# if select_0.any():
+# 	c_default = ConnectObj('default', nodes, edges, select=select_0, line_width=width, 
+# 		antialias =True, custom_colors = {None: "midnightblue"})
+# 	sc.add_to_subplot(c_default, row=0, col=0, zoom=0.1)
 
-if select_2.any():
-	c_default2 = ConnectObj('default', nodes, edges, select=select_2, line_width=width, 
-		antialias =True, custom_colors = {None: "darkblue"})
-	sc.add_to_subplot(c_default2, row=0, col=0, zoom=0.1)
+# if select_1.any():
+# 	c_default1 = ConnectObj('default', nodes, edges, select=select_1, line_width=width, 
+# 		antialias =True, custom_colors = {None: "navy"})
+# 	sc.add_to_subplot(c_default1, row=0, col=0, zoom=0.1)
 
-if select_3.any():
-	c_default3 = ConnectObj('default', nodes, edges, select=select_3, line_width=width, 
-		antialias =True, custom_colors = {None: "mediumblue"})
-	sc.add_to_subplot(c_default3, row=0, col=0, zoom=0.1)
+# if select_2.any():
+# 	c_default2 = ConnectObj('default', nodes, edges, select=select_2, line_width=width, 
+# 		antialias =True, custom_colors = {None: "mediumblue"})
+# 	sc.add_to_subplot(c_default2, row=0, col=0, zoom=0.1)
+
+# if select_3.any():
+# 	c_default3 = ConnectObj('default', nodes, edges, select=select_3, line_width=width, 
+# 		antialias =True, custom_colors = {None: "blue"})
+# 	sc.add_to_subplot(c_default3, row=0, col=0, zoom=0.1)
 
 
-if select_4.any():
-	c_default4 = ConnectObj('default', nodes, edges, select=select_4, line_width=width, 
-		antialias =True, custom_colors = {None: "blue"})
-	sc.add_to_subplot(c_default4, row=0, col=0, zoom=0.1)
+# if select_4.any():
+# 	c_default4 = ConnectObj('default', nodes, edges, select=select_4, line_width=width, 
+# 		antialias =True, custom_colors = {None: "dodgerblue"})
+# 	sc.add_to_subplot(c_default4, row=0, col=0, zoom=0.1)
 
-if select_5.any():
-	c_default5 = ConnectObj('default', nodes, edges, select=select_5, line_width=width, 
-		antialias =True, custom_colors = {None: "dodgerblue"})
-	sc.add_to_subplot(c_default5, row=0, col=0, zoom=0.1)
-
-# if select_6.any():
-# 	c_default6 = ConnectObj('default', nodes, edges, select=select_6, line_width=width, 
+# if select_5.any():
+# 	c_default5 = ConnectObj('default', nodes, edges, select=select_5, line_width=width, 
 # 		antialias =True, custom_colors = {None: "deepskyblue"})
-# 	sc.add_to_subplot(c_default6, row=0, col=0, zoom=0.1)
+# 	sc.add_to_subplot(c_default5, row=0, col=0, zoom=0.1)
 
-# if select_7.any():
-# 	c_default7 = ConnectObj('default', nodes, edges, select=select_7, line_width=width, 
-# 		antialias =True, custom_colors = {None: "aqua"})
-# 	sc.add_to_subplot(c_default7, row=0, col=0, zoom=0.1)
+# # if select_6.any():
+# # 	c_default6 = ConnectObj('default', nodes, edges, select=select_6, line_width=width, 
+# # 		antialias =True, custom_colors = {None: "deepskyblue"})
+# # 	sc.add_to_subplot(c_default6, row=0, col=0, zoom=0.1)
 
-# midnightblue', 'navy', 'mediumblue', 'blue','dodgerblue', 'aqua'])#'#686868', 'black', 'blue', 'green', 'purple'
-# old- ['#686868', 'black', 'rebeccapurple', 'mediumvioletred', 'darkorange']
-# '#686868', 'blue', 'cyan', 'springgreen', 'yellow','orange', 'red', 'maroon'
-# '#686868', 'black', 'blue', 'green', 'yellow','orange', 'red', 'maroon'
-#if you want all connec to be same color use - custom_colors = {None: "green"}
+# # if select_7.any():
+# # 	c_default7 = ConnectObj('default', nodes, edges, select=select_7, line_width=width, 
+# # 		antialias =True, custom_colors = {None: "aqua"})
+# # 	sc.add_to_subplot(c_default7, row=0, col=0, zoom=0.1)
 
-# Then, we define the sourcess
-#node size and color
-s_obj = SourceObj('sources', nodes, radius_min=5., color="red")
-# black color nodes = color='#000000'
-#title
+# # ['midnightblue', 'navy', 'mediumblue', 'blue','dodgerblue','deepskyblue']
+# # old- ['#686868', 'black', 'rebeccapurple', 'mediumvioletred', 'darkorange']
+# # '#686868', 'blue', 'cyan', 'springgreen', 'yellow','orange', 'red', 'maroon'
+# # '#686868', 'black', 'blue', 'green', 'yellow','orange', 'red', 'maroon'
+# #if you want all connec to be same color use - custom_colors = {None: "green"}
 
-# And add source to the scene
-sc.add_to_subplot(s_obj, row=0, col=0, zoom=0.1)
+# # Then, we define the sourcess
+# #node size and color
+# s_obj = SourceObj('sources', nodes, radius_min=5., color="red")
+# # black color nodes = color='#000000'
+# #title
 
-name = 'targ_net{}.png'.format(NETWORK)
-#sc.screenshot(name, transparent=True)
-print(edges_cv_b)
-sc.preview()
+# # And add source to the scene
+# sc.add_to_subplot(s_obj, row=0, col=0, zoom=0.1)
+
+# name = 'targ_net{}.png'.format(NETWORK)
+# #sc.screenshot(name, transparent=True)
+# print(edges_cv_b)
+# sc.preview()
 
 ##############################################################################################################################################################
 
@@ -230,9 +232,12 @@ select4 = edges >= bndries[4]
 select44 = edges <bndries[5]
 select_4 = select4 == select44
 
-select5 = edges >= bndries[5]
-select55 = edges <bndries[6]
-select_5 = select5 == select55
+select_5 = edges >= bndries[5]
+
+
+# select5 = edges >= bndries[5]
+# select55 = edges <bndries[6]
+# select_5 = select5 == select55
 
 # select6 = edges >= bndries[6]
 # select66 = edges <bndries[7]
@@ -244,28 +249,34 @@ select_5 = select5 == select55
 # Define the connectivity object
 width  = 1.5
 if select_0.any():
-	c_default = ConnectObj('default', nodes, edges, select=select_0, line_width=width, antialias =True, custom_colors = {None: "midnightblue"})
+	c_default = ConnectObj('default', nodes, edges, select=select_0, line_width=width, 
+		antialias =True, custom_colors = {None: "midnightblue"})
 	sc.add_to_subplot(c_default, row=0, col=0, zoom=0.1)
 
 if select_1.any():
-	c_default1 = ConnectObj('default', nodes, edges, select=select_1, line_width=width, antialias =True, custom_colors = {None: "navy"})
+	c_default1 = ConnectObj('default', nodes, edges, select=select_1, line_width=width, 
+		antialias =True, custom_colors = {None: "navy"})
 	sc.add_to_subplot(c_default1, row=0, col=0, zoom=0.1)
 
 if select_2.any():
-	c_default2 = ConnectObj('default', nodes, edges, select=select_2, line_width=width, antialias =True, custom_colors = {None: "darkblue"})
+	c_default2 = ConnectObj('default', nodes, edges, select=select_2, line_width=width, 
+		antialias =True, custom_colors = {None: "mediumblue"})
 	sc.add_to_subplot(c_default2, row=0, col=0, zoom=0.1)
 
 if select_3.any():
-	c_default3 = ConnectObj('default', nodes, edges, select=select_3, line_width=width, antialias =True, custom_colors = {None: "mediumblue"})
+	c_default3 = ConnectObj('default', nodes, edges, select=select_3, line_width=width, 
+		antialias =True, custom_colors = {None: "blue"})
 	sc.add_to_subplot(c_default3, row=0, col=0, zoom=0.1)
 
 
 if select_4.any():
-	c_default4 = ConnectObj('default', nodes, edges, select=select_4, line_width=width, antialias =True, custom_colors = {None: "blue"})
+	c_default4 = ConnectObj('default', nodes, edges, select=select_4, line_width=width, 
+		antialias =True, custom_colors = {None: "dodgerblue"})
 	sc.add_to_subplot(c_default4, row=0, col=0, zoom=0.1)
 
 if select_5.any():
-	c_default5 = ConnectObj('default', nodes, edges, select=select_5, line_width=width, antialias =True, custom_colors = {None: "dodgerblue"})
+	c_default5 = ConnectObj('default', nodes, edges, select=select_5, line_width=width, 
+		antialias =True, custom_colors = {None: "deepskyblue"})
 	sc.add_to_subplot(c_default5, row=0, col=0, zoom=0.1)
 
 # if select_6.any():
@@ -286,6 +297,6 @@ s_obj = SourceObj('sources', nodes, radius_min=5., color="red")
 sc.add_to_subplot(s_obj, row=0, col=0, zoom=0.1)
 name = 'est_net{}_meth{}.png'.format(NETWORK,EST)
 print(name)
-#sc.screenshot(name, transparent=True)
-print(np.mean(edges_cv_a[edges_cv_a!=0]))
+sc.screenshot(name, transparent=True)
+print("a",np.mean(edges_cv_a[edges_cv_a!=0]))
 sc.preview()
