@@ -139,21 +139,21 @@ select3 = edges > 30
 select33 = edges <40
 select_3 = select3 == select33
 
-#select_4 = edges > 40
+select_4 = edges > 40
 
-select4 = edges > 40
-select44 = edges <50
-select_4 = select4 == select44
+# select4 = edges > 40
+# select44 = edges <50
+# select_4 = select4 == select44
 
-select5 = edges > 50
-select55 = edges <60
-select_5 = select5 == select55
+# select5 = edges > 50
+# select55 = edges <60
+# select_5 = select5 == select55
 
-select6 = edges > 60
-select66 = edges <70
-select_6 = select6 == select66
+# select6 = edges > 60
+# select66 = edges <70
+# select_6 = select6 == select66
 
-select_7 = edges > 70
+# select_7 = edges > 70
 
 ################Different colors for diff strengths
 # Define the connectivity object
@@ -168,30 +168,31 @@ if select_1.any():
 	sc.add_to_subplot(c_default1, row=0, col=0, zoom=0.1)
 
 if select_2.any():
-	c_default2 = ConnectObj('default', nodes, edges, select=select_2, line_width=1.6, antialias =True, custom_colors = {None: "blue"},color_by = color_by, cmap = "inferno")
+	c_default2 = ConnectObj('default', nodes, edges, select=select_2, line_width=1.6, antialias =True, custom_colors = {None: "rebeccapurple"},color_by = color_by, cmap = "inferno")
 	sc.add_to_subplot(c_default2, row=0, col=0, zoom=0.1)
 
 if select_3.any():
-	c_default3 = ConnectObj('default', nodes, edges, select=select_3, line_width=1.7, antialias =True, custom_colors = {None: "green"},color_by = color_by, cmap = "inferno")
+	c_default3 = ConnectObj('default', nodes, edges, select=select_3, line_width=1.7, antialias =True, custom_colors = {None: "mediumvioletred"},color_by = color_by, cmap = "inferno")
 	sc.add_to_subplot(c_default3, row=0, col=0, zoom=0.1)
 
 
 if select_4.any():
-	c_default4 = ConnectObj('default', nodes, edges, select=select_4, line_width=1.8, antialias =True, custom_colors = {None: "yellow"},color_by = color_by, cmap = "inferno")
+	c_default4 = ConnectObj('default', nodes, edges, select=select_4, line_width=1.8, antialias =True, custom_colors = {None: "darkorange"},color_by = color_by, cmap = "inferno")
 	sc.add_to_subplot(c_default4, row=0, col=0, zoom=0.1)
 
-if select_5.any():
-	c_default5 = ConnectObj('default', nodes, edges, select=select_5, line_width=2., antialias =True, custom_colors = {None: "orange"},color_by = color_by, cmap = "inferno")
-	sc.add_to_subplot(c_default5, row=0, col=0, zoom=0.1)
+# if select_5.any():
+# 	c_default5 = ConnectObj('default', nodes, edges, select=select_5, line_width=2., antialias =True, custom_colors = {None: "orange"},color_by = color_by, cmap = "inferno")
+# 	sc.add_to_subplot(c_default5, row=0, col=0, zoom=0.1)
 
-if select_6.any():
-	c_default6 = ConnectObj('default', nodes, edges, select=select_6, line_width=2.5, antialias =True, custom_colors = {None: "red"},color_by = color_by, cmap = "inferno")
-	sc.add_to_subplot(c_default6, row=0, col=0, zoom=0.1)
+# if select_6.any():
+# 	c_default6 = ConnectObj('default', nodes, edges, select=select_6, line_width=2.5, antialias =True, custom_colors = {None: "red"},color_by = color_by, cmap = "inferno")
+# 	sc.add_to_subplot(c_default6, row=0, col=0, zoom=0.1)
 
-if select_7.any():
-	c_default7 = ConnectObj('default', nodes, edges, select=select_7, line_width=3, antialias =True, custom_colors = {None: "maroon"},color_by = color_by, cmap = "inferno")
-	sc.add_to_subplot(c_default7, row=0, col=0, zoom=0.1)
+# if select_7.any():
+# 	c_default7 = ConnectObj('default', nodes, edges, select=select_7, line_width=3, antialias =True, custom_colors = {None: "maroon"},color_by = color_by, cmap = "inferno")
+# 	sc.add_to_subplot(c_default7, row=0, col=0, zoom=0.1)
 
+# old- ['#686868', 'black', 'rebeccapurple', 'mediumvioletred', 'darkorange']
 # '#686868', 'blue', 'cyan', 'springgreen', 'yellow','orange', 'red', 'maroon'
 # '#686868', 'black', 'blue', 'green', 'yellow','orange', 'red', 'maroon'
 #if you want all connec to be same color use - custom_colors = {None: "green"}
