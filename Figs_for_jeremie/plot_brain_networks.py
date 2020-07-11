@@ -14,6 +14,7 @@ import numpy as np
 from visbrain.objects import ConnectObj, SceneObj, SourceObj, BrainObj
 from visbrain.io import download_file
 
+cv_after = "cv_after.npy" # the array of cv after the changes
 ###############################################################################
 
 # Create the scene with a black background
@@ -43,7 +44,7 @@ KW = dict(title_size=14., zoom=1.2)
 nodes = np.load("coords.npy")
 
 #Download Jeremie's cv weights data
-edges_cv_a = np.load("cv_after.npy")
+edges_cv_a = np.load(cv_after)
 
 # Because we don't want to plot every connections, we only keep connections
 # above threshold

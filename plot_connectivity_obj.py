@@ -84,7 +84,7 @@ from visbrain.io import download_file
 nodes = np.load("coords.npy")
 
 #Download Jeremie's cv weights data
-edges_cv_a = np.load("cv_after.npy")
+edges_cv_a = np.load("cv.npy")
 
 # Create the scene with a black background
 
@@ -116,7 +116,7 @@ color_by = 'strength'
 # above threshold
 
 #applying mask for diff regions
-mask = np.load("mask4.npy")
+mask = np.load("mask1.npy")
 edges = np.where(mask, -999, edges_cv_a)
 
 print(edges, edges.shape)
@@ -206,7 +206,7 @@ s_obj = SourceObj('sources', nodes, radius_min=5., color="red")
 # And add source to the scene
 sc.add_to_subplot(s_obj, row=0, col=0, zoom=0.1)
 
-#sc.screenshot('cv_after3.png', transparent=True)
+sc.screenshot('cv_sr0_gamma0.png', transparent=True)
 print(edges_cv_a)
 sc.preview()
 
